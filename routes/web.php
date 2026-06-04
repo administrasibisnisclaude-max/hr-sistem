@@ -83,6 +83,9 @@ Route::middleware('auth')->group(function () {
         // Leave management
         Route::post('/leaves/{leave}/approve', [LeaveController::class, 'approve'])->name('leaves.approve');
         Route::post('/leaves/{leave}/reject', [LeaveController::class, 'reject'])->name('leaves.reject');
+        Route::post('/leaves/balance/store', [LeaveController::class, 'storeBalance'])->name('leaves.balance.store');
+        Route::post('/leaves/balance/init', [LeaveController::class, 'initBalance'])->name('leaves.balance.init');
+        Route::put('/leaves/balance/{balance}', [LeaveController::class, 'updateBalance'])->name('leaves.balance.update');
 
         // Payroll management
         Route::get('/payroll/create', [PayrollController::class, 'create'])->name('payroll.create');

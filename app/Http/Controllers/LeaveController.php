@@ -189,11 +189,70 @@ class LeaveController extends Controller
     public function balance(Request $request)
     {
         $year = $request->year ?? date('Y');
-        $balances = LeaveBalance::with('employee.department')
-            ->where('year', $year)
-            ->get();
 
-        return view('leaves.balance', compact('balances', 'year'));
+        $employees = Employee::with(['department', 'leaveBalances' => function ($q) use ($year) {
+            $q->where('year', $year);
+        }])->where('employment_status', '!=', 'tidak_aktif')->orderBy('name')->get();
+
+        $balances = LeaveBalance::with('employee.department')->where('year', $year)->get()->keyBy('employee_id');
+
+        return view('leaves.balance', compact('employees', 'balances', 'year'));
+    }
+
+    public function storeBalance(Request $request)
+    {
+        $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'year'        => 'required|integer|min:2000|max:2100',
+            'total_days'  => 'required|integer|min:0|max:365',
+        ]);
+
+        LeaveBalance::updateOrCreate(
+            ['employee_id' => $request->employee_id, 'year' => $request->year],
+            ['total_days' => $request->total_days]
+        );
+
+        return back()->with('success', 'Saldo cuti berhasil disimpan.');
+    }
+
+    public function updateBalance(Request $request, LeaveBalance $balance)
+    {
+        $request->validate([
+            'total_days' => 'required|integer|min:0|max:365',
+            'used_days'  => 'required|integer|min:0',
+        ]);
+
+        $balance->update([
+            'total_days' => $request->total_days,
+            'used_days'  => $request->used_days,
+        ]);
+
+        return back()->with('success', 'Saldo cuti berhasil diperbarui.');
+    }
+
+    public function initBalance(Request $request)
+    {
+        $request->validate([
+            'year'       => 'required|integer|min:2000|max:2100',
+            'total_days' => 'required|integer|min:0|max:365',
+        ]);
+
+        $employees = Employee::where('employment_status', '!=', 'tidak_aktif')->get();
+        $count = 0;
+        foreach ($employees as $emp) {
+            $existing = LeaveBalance::where('employee_id', $emp->id)->where('year', $request->year)->first();
+            if (!$existing) {
+                LeaveBalance::create([
+                    'employee_id' => $emp->id,
+                    'year'        => $request->year,
+                    'total_days'  => $request->total_days,
+                    'used_days'   => 0,
+                ]);
+                $count++;
+            }
+        }
+
+        return back()->with('success', "Saldo cuti berhasil diinisialisasi untuk {$count} karyawan.");
     }
 
     public function destroy(LeaveRequest $leave)
