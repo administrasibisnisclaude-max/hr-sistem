@@ -50,7 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/leaves', [LeaveController::class, 'index'])->name('leaves.index');
     Route::get('/leaves/balance', [LeaveController::class, 'balance'])->name('leaves.balance');
+    Route::get('/leaves/create', [LeaveController::class, 'create'])->name('leaves.create');
+    Route::post('/leaves', [LeaveController::class, 'store'])->name('leaves.store');
     Route::get('/leaves/{leave}', [LeaveController::class, 'show'])->name('leaves.show');
+    Route::delete('/leaves/{leave}', [LeaveController::class, 'destroy'])->name('leaves.destroy');
     Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll.index');
     Route::get('/payroll/{payroll}', [PayrollController::class, 'show'])->name('payroll.show');
     Route::get('/payroll/{payroll}/slip', [PayrollController::class, 'slip'])->name('payroll.slip');
@@ -60,10 +63,6 @@ Route::middleware('auth')->group(function () {
 
     // Karyawan specific
     Route::post('/attendance/clock', [AttendanceController::class, 'clock'])->name('attendance.clock')->middleware('role:karyawan');
-    Route::get('/leaves/create', [LeaveController::class, 'create'])->name('leaves.create');
-    Route::post('/leaves', [LeaveController::class, 'store'])->name('leaves.store');
-    Route::delete('/leaves/{leave}', [LeaveController::class, 'destroy'])->name('leaves.destroy');
-
     // Admin only routes
     Route::middleware('role:admin')->group(function () {
         Route::resource('employees', EmployeeController::class)->except(['index', 'show']);
