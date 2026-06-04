@@ -1,18 +1,27 @@
 @extends('layouts.app')
+
 @section('title', 'Pengaturan Perusahaan')
+
+@section('breadcrumb')
+    <li class="breadcrumb-item active">Pengaturan Perusahaan</li>
+@endsection
+
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-cog me-2 text-primary"></i>Pengaturan Perusahaan</h1>
+<div class="mb-4">
+    <h4 class="mb-0"><i class="fas fa-cog me-2 text-primary"></i>Pengaturan Perusahaan</h4>
 </div>
+
 <div class="card" style="max-width:700px;">
+    <div class="card-header"><i class="fas fa-building me-2"></i>Konfigurasi Sistem HR</div>
     <div class="card-body">
         <form action="{{ route('company.update') }}" method="POST" enctype="multipart/form-data">
             @csrf @method('PUT')
 
             <h6 class="fw-bold mb-3 text-primary"><i class="fas fa-building me-2"></i>Informasi Perusahaan</h6>
             <div class="mb-3">
-                <label class="form-label fw-semibold">Nama Perusahaan *</label>
-                <input type="text" name="company_name" class="form-control" value="{{ old('company_name', $settings->get('company_name')?->value) }}" required>
+                <label class="form-label fw-semibold">Nama Perusahaan <span class="text-danger">*</span></label>
+                <input type="text" name="company_name" class="form-control @error('company_name') is-invalid @enderror" value="{{ old('company_name', $settings->get('company_name')?->value) }}" required>
+                @error('company_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="mb-3">
                 <label class="form-label fw-semibold">Alamat</label>
@@ -32,16 +41,16 @@
                 <label class="form-label fw-semibold">Logo Perusahaan</label>
                 <input type="file" name="logo" class="form-control" accept="image/*">
                 @if($settings->get('company_logo')?->value)
-                    <div class="mt-2">
+                    <div class="mt-2 d-flex align-items-center gap-2">
                         <img src="{{ Storage::url($settings->get('company_logo')->value) }}" alt="Logo" style="height:60px;">
-                        <small class="text-muted ms-2">Logo saat ini</small>
+                        <small class="text-muted">Logo saat ini</small>
                     </div>
                 @endif
             </div>
 
             <hr>
             <h6 class="fw-bold mb-3 text-primary"><i class="fas fa-clock me-2"></i>Pengaturan Jam Kerja</h6>
-            <div class="row g-3 mb-3">
+            <div class="row g-3 mb-4">
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Jam Masuk</label>
                     <input type="time" name="work_start_time" class="form-control" value="{{ old('work_start_time', $settings->get('work_start_time')?->value ?? '08:00') }}">
@@ -53,7 +62,7 @@
             </div>
 
             <hr>
-            <h6 class="fw-bold mb-3 text-primary"><i class="fas fa-calendar me-2"></i>Pengaturan Cuti & Gaji</h6>
+            <h6 class="fw-bold mb-3 text-primary"><i class="fas fa-calendar me-2"></i>Pengaturan Cuti &amp; Gaji</h6>
             <div class="row g-3 mb-4">
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Jatah Cuti Per Tahun (hari)</label>

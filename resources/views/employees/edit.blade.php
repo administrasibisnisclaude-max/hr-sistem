@@ -9,8 +9,8 @@
 @endsection
 
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-user-edit me-2 text-primary"></i>Edit Karyawan: {{ $employee->name }}</h1>
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <span class="text-muted">Edit data: <strong>{{ $employee->name }}</strong></span>
     <a href="{{ route('employees.show', $employee) }}" class="btn btn-outline-secondary">
         <i class="fas fa-arrow-left me-2"></i>Kembali
     </a>
@@ -20,7 +20,7 @@
     @csrf @method('PUT')
     <div class="row g-3">
         <div class="col-lg-8">
-            <div class="card mb-3">
+            <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-user me-2"></i>Data Pribadi</div>
                 <div class="card-body">
                     <div class="row g-3">
@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-briefcase me-2"></i>Data Kepegawaian</div>
                 <div class="card-body">
                     <div class="row g-3">
@@ -118,7 +118,7 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-camera me-2"></i>Foto Karyawan</div>
                 <div class="card-body text-center">
                     <div id="photoPreview" class="mb-3" style="height:200px; background:#f8f9fa; border-radius:8px; overflow:hidden;">

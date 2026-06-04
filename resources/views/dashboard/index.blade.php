@@ -7,66 +7,76 @@
 @endsection
 
 @section('content')
-<div class="page-header">
-    <div>
-        <h1 class="page-title">Dashboard</h1>
-        <p class="text-muted mb-0">Selamat datang, {{ auth()->user()->name }}!</p>
-    </div>
-    <div>
-        <span class="text-muted small"><i class="fas fa-calendar me-1"></i>{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</span>
-    </div>
-</div>
-
 <!-- Stats Cards -->
 <div class="row g-3 mb-4">
-    <div class="col-sm-6 col-xl-3">
-        <div class="stat-card" style="background: linear-gradient(135deg, #3b5998, #6ea6ff);">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-                <div class="stat-icon"><i class="fas fa-users"></i></div>
-                <small class="opacity-75">Total</small>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="display-6 fw-bold">{{ $totalEmployees }}</div>
+                    <div>Karyawan Aktif</div>
+                </div>
+                <i class="fas fa-users fa-3x opacity-50"></i>
             </div>
-            <div class="stat-number">{{ $totalEmployees }}</div>
-            <div class="stat-label">Karyawan Aktif</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="{{ route('employees.index') }}">Lihat Detail</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="stat-card" style="background: linear-gradient(135deg, #198754, #20c997);">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-                <div class="stat-icon"><i class="fas fa-user-check"></i></div>
-                <small class="opacity-75">Hari Ini</small>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-white mb-4">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="display-6 fw-bold">{{ $presentToday }}</div>
+                    <div>Hadir Hari Ini</div>
+                </div>
+                <i class="fas fa-user-check fa-3x opacity-50"></i>
             </div>
-            <div class="stat-number">{{ $presentToday }}</div>
-            <div class="stat-label">Hadir Hari Ini</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="{{ route('attendance.index') }}">Lihat Detail</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="stat-card" style="background: linear-gradient(135deg, #fd7e14, #ffc107);">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-                <div class="stat-icon"><i class="fas fa-calendar-times"></i></div>
-                <small class="opacity-75">Hari Ini</small>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="display-6 fw-bold">{{ $onLeave }}</div>
+                    <div>Sedang Cuti</div>
+                </div>
+                <i class="fas fa-umbrella-beach fa-3x opacity-50"></i>
             </div>
-            <div class="stat-number">{{ $onLeave }}</div>
-            <div class="stat-label">Sedang Cuti</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="{{ route('leaves.index') }}">Lihat Detail</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="stat-card" style="background: linear-gradient(135deg, #dc3545, #e83e8c);">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-                <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
-                <small class="opacity-75">Bulan Ini</small>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-danger text-white mb-4">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="fs-5 fw-bold">Rp {{ number_format($totalPayrollThisMonth, 0, ',', '.') }}</div>
+                    <div>Total Penggajian</div>
+                </div>
+                <i class="fas fa-money-bill-wave fa-3x opacity-50"></i>
             </div>
-            <div class="stat-number" style="font-size: 1.3rem;">Rp {{ number_format($totalPayrollThisMonth, 0, ',', '.') }}</div>
-            <div class="stat-label">Total Penggajian</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="{{ route('payroll.index') }}">Lihat Detail</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="row g-3">
+<div class="row">
     <!-- Attendance Summary -->
-    <div class="col-lg-4">
+    <div class="col-lg-4 mb-4">
         <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <span><i class="fas fa-clock me-2 text-primary"></i>Absensi Hari Ini</span>
+                <span><i class="fas fa-clock me-2"></i>Absensi Hari Ini</span>
                 <a href="{{ route('attendance.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
             </div>
             <div class="card-body">
@@ -96,12 +106,11 @@
                         </div>
                     </div>
                 </div>
-
                 @if($pendingLeaveRequests > 0)
                     <div class="alert alert-warning mt-3 mb-0 py-2 small">
                         <i class="fas fa-exclamation-triangle me-1"></i>
                         <strong>{{ $pendingLeaveRequests }}</strong> pengajuan cuti menunggu persetujuan
-                        <a href="{{ route('leaves.index') }}?status=pending" class="ms-1">Proses →</a>
+                        <a href="{{ route('leaves.index') }}?status=pending" class="ms-1">Proses &rarr;</a>
                     </div>
                 @endif
             </div>
@@ -109,10 +118,10 @@
     </div>
 
     <!-- Announcements -->
-    <div class="col-lg-4">
+    <div class="col-lg-4 mb-4">
         <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <span><i class="fas fa-bullhorn me-2 text-warning"></i>Pengumuman</span>
+                <span><i class="fas fa-bullhorn me-2"></i>Pengumuman</span>
                 <a href="{{ route('announcements.index') }}" class="btn btn-sm btn-outline-warning">Semua</a>
             </div>
             <div class="card-body p-0">
@@ -137,16 +146,16 @@
     </div>
 
     <!-- Expiring Contracts -->
-    <div class="col-lg-4">
+    <div class="col-lg-4 mb-4">
         <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <span><i class="fas fa-file-contract me-2 text-danger"></i>Kontrak Hampir Habis</span>
+                <span><i class="fas fa-file-contract me-2"></i>Kontrak Hampir Habis</span>
                 <a href="{{ route('contracts.index') }}?expiring=1" class="btn btn-sm btn-outline-danger">Lihat</a>
             </div>
             <div class="card-body p-0">
                 @forelse($expiringContracts as $contract)
                     <div class="p-3 border-bottom d-flex align-items-center">
-                        <div class="rounded-circle bg-danger bg-opacity-10 text-danger d-flex align-items-center justify-content-center me-3" style="width:36px; height:36px; font-size:0.8rem; font-weight:700;">
+                        <div class="rounded-circle bg-danger bg-opacity-10 text-danger d-flex align-items-center justify-content-center me-3" style="width:36px;height:36px;font-size:0.8rem;font-weight:700;">
                             {{ $contract->days_until_expiry }}
                         </div>
                         <div>
@@ -166,50 +175,58 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Recent Employees -->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <span><i class="fas fa-user-plus me-2 text-primary"></i>Karyawan Terbaru</span>
-                <a href="{{ route('employees.index') }}" class="btn btn-sm btn-outline-primary">Semua Karyawan</a>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                    <thead>
+<!-- Recent Employees -->
+<div class="card mb-4">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <span><i class="fas fa-user-plus me-2"></i>Karyawan Terbaru</span>
+        <a href="{{ route('employees.index') }}" class="btn btn-sm btn-outline-primary">Semua Karyawan</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>NIK</th>
+                        <th>Nama</th>
+                        <th>Departemen</th>
+                        <th>Jabatan</th>
+                        <th>Status</th>
+                        <th>Bergabung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($recentEmployees as $emp)
                         <tr>
-                            <th>NIK</th>
-                            <th>Nama</th>
-                            <th>Departemen</th>
-                            <th>Jabatan</th>
-                            <th>Status</th>
-                            <th>Bergabung</th>
+                            <td class="fw-semibold text-primary">{{ $emp->nik }}</td>
+                            <td>
+                                <a href="{{ route('employees.show', $emp) }}" class="text-dark text-decoration-none fw-semibold">{{ $emp->name }}</a>
+                            </td>
+                            <td>{{ $emp->department?->name ?? '-' }}</td>
+                            <td>{{ $emp->position?->name ?? '-' }}</td>
+                            <td>
+                                @php $statusColors = ['tetap' => 'success', 'kontrak' => 'warning', 'magang' => 'info', 'tidak_aktif' => 'secondary']; @endphp
+                                <span class="badge bg-{{ $statusColors[$emp->employment_status] ?? 'secondary' }}">{{ $emp->status_label }}</span>
+                            </td>
+                            <td>{{ $emp->hire_date?->format('d/m/Y') ?? '-' }}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($recentEmployees as $emp)
-                            <tr>
-                                <td class="fw-semibold text-primary">{{ $emp->nik }}</td>
-                                <td>
-                                    <a href="{{ route('employees.show', $emp) }}" class="text-dark text-decoration-none fw-semibold">{{ $emp->name }}</a>
-                                </td>
-                                <td>{{ $emp->department?->name ?? '-' }}</td>
-                                <td>{{ $emp->position?->name ?? '-' }}</td>
-                                <td>
-                                    @php
-                                        $statusColors = ['tetap' => 'success', 'kontrak' => 'warning', 'magang' => 'info', 'tidak_aktif' => 'secondary'];
-                                    @endphp
-                                    <span class="badge bg-{{ $statusColors[$emp->employment_status] ?? 'secondary' }}">{{ $emp->status_label }}</span>
-                                </td>
-                                <td>{{ $emp->hire_date?->format('d/m/Y') ?? '-' }}</td>
-                            </tr>
-                        @empty
-                            <tr><td colspan="6" class="text-center text-muted py-4">Belum ada data karyawan</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                    @empty
+                        <tr><td colspan="6" class="text-center text-muted py-4">Belum ada data karyawan</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        if ($.fn.DataTable && $('#datatablesSimple').length) {
+            $('#datatablesSimple').DataTable({ language: { url: '' } });
+        }
+    });
+</script>
 @endsection

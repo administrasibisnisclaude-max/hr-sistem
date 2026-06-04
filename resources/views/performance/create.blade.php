@@ -1,11 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Tambah Evaluasi Kinerja')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('performance.index') }}">Evaluasi</a></li>
+    <li class="breadcrumb-item active">Tambah</li>
+@endsection
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-chart-bar me-2 text-primary"></i>Tambah Evaluasi Kinerja</h1>
+<div class="d-flex justify-content-end mb-3">
     <a href="{{ route('performance.index') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
 </div>
-<div class="card" style="max-width:700px;">
+<div class="card mb-4" style="max-width:700px;">
+    <div class="card-header"><i class="fas fa-star me-2"></i>Tambah Evaluasi Kinerja</div>
     <div class="card-body">
         <form action="{{ route('performance.store') }}" method="POST">
             @csrf
@@ -27,9 +31,7 @@
                     <label class="form-label fw-semibold">Skor (0-100) *</label>
                     <input type="number" name="score" class="form-control" min="0" max="100" step="0.01" value="{{ old('score') }}" required id="scoreInput">
                     <div class="mt-2">
-                        <div class="progress" style="height:10px;">
-                            <div class="progress-bar" id="scoreBar" style="width:0%"></div>
-                        </div>
+                        <div class="progress" style="height:10px;"><div class="progress-bar" id="scoreBar" style="width:0%"></div></div>
                         <small class="text-muted">Nilai: <span id="gradePreview">-</span></small>
                     </div>
                 </div>
@@ -46,7 +48,6 @@
     </div>
 </div>
 @endsection
-
 @push('scripts')
 <script>
 document.getElementById('scoreInput').addEventListener('input', function() {

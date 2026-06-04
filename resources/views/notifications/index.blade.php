@@ -1,13 +1,20 @@
 @extends('layouts.app')
+
 @section('title', 'Notifikasi')
+
+@section('breadcrumb')
+    <li class="breadcrumb-item active">Notifikasi</li>
+@endsection
+
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-bell me-2 text-primary"></i>Notifikasi</h1>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h4 class="mb-0"><i class="fas fa-bell me-2 text-primary"></i>Notifikasi</h4>
     <form action="{{ route('notifications.read-all') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="fas fa-check-double me-2"></i>Tandai Semua Dibaca</button>
     </form>
 </div>
+
 <div class="card">
     <div class="list-group list-group-flush">
         @forelse($notifications as $notif)
@@ -15,17 +22,17 @@
                 <div class="d-flex align-items-start justify-content-between">
                     <div class="d-flex align-items-start gap-3">
                         <div class="mt-1">
-                            <div class="rounded-circle {{ !$notif->is_read ? 'bg-primary' : 'bg-secondary bg-opacity-25' }} d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                            <div class="rounded-circle {{ !$notif->is_read ? 'bg-primary' : 'bg-secondary bg-opacity-25' }} d-flex align-items-center justify-content-center" style="width:40px;height:40px;min-width:40px;">
                                 <i class="fas fa-{{ !$notif->is_read ? 'bell text-white' : 'bell-slash text-muted' }} small"></i>
                             </div>
                         </div>
                         <div>
                             <div class="fw-semibold {{ !$notif->is_read ? 'text-primary' : '' }}">{{ $notif->title }}</div>
                             <div class="text-muted">{{ $notif->message }}</div>
-                            <small class="text-muted">{{ $notif->created_at->diffForHumans() }}</small>
+                            <small class="text-muted"><i class="fas fa-clock me-1"></i>{{ $notif->created_at->diffForHumans() }}</small>
                         </div>
                     </div>
-                    <div class="d-flex gap-2 ms-3">
+                    <div class="d-flex gap-2 ms-3 flex-shrink-0">
                         @if(!$notif->is_read)
                             <form action="{{ route('notifications.read', $notif) }}" method="POST">
                                 @csrf
@@ -46,6 +53,8 @@
             </div>
         @endforelse
     </div>
-    @if($notifications->hasPages())<div class="p-3">{{ $notifications->links() }}</div>@endif
+    @if($notifications->hasPages())
+        <div class="p-3">{{ $notifications->links() }}</div>
+    @endif
 </div>
 @endsection

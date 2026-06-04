@@ -1,11 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Tambah Pengajuan Cuti')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('leaves.index') }}">Cuti</a></li>
+    <li class="breadcrumb-item active">Tambah</li>
+@endsection
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-calendar-plus me-2 text-primary"></i>Tambah Pengajuan Cuti</h1>
+<div class="d-flex justify-content-end mb-3">
     <a href="{{ route('leaves.index') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
 </div>
-<div class="card" style="max-width:600px;">
+<div class="card mb-4" style="max-width:600px;">
+    <div class="card-header"><i class="fas fa-calendar-plus me-2"></i>Tambah Pengajuan Cuti</div>
     <div class="card-body">
         <form action="{{ route('leaves.store') }}" method="POST" enctype="multipart/form-data">
             @csrf

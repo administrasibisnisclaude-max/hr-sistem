@@ -1,11 +1,20 @@
 @extends('layouts.app')
+
 @section('title', $announcement->title)
+
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ auth()->user()->hasRole('karyawan') ? route('announcements.own') : route('announcements.index') }}">Pengumuman</a></li>
+    <li class="breadcrumb-item active">Detail</li>
+@endsection
+
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-bullhorn me-2 text-primary"></i>Pengumuman</h1>
-    <a href="{{ auth()->user()->hasRole('karyawan') ? route('announcements.own') : route('announcements.index') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h4 class="mb-0"><i class="fas fa-bullhorn me-2 text-warning"></i>Pengumuman</h4>
+    <a href="{{ auth()->user()->hasRole('karyawan') ? route('announcements.own') : route('announcements.index') }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
 </div>
+
 <div class="card" style="max-width:700px;">
+    <div class="card-header"><i class="fas fa-bullhorn me-2"></i>Detail Pengumuman</div>
     <div class="card-body p-4">
         <h3 class="fw-bold mb-3">{{ $announcement->title }}</h3>
         <div class="text-muted small mb-4">

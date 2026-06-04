@@ -8,8 +8,8 @@
 @endsection
 
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-user-plus me-2 text-primary"></i>Tambah Karyawan</h1>
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <span class="text-muted">Isi data karyawan baru</span>
     <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary">
         <i class="fas fa-arrow-left me-2"></i>Kembali
     </a>
@@ -18,9 +18,8 @@
 <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row g-3">
-        <!-- Data Pribadi -->
         <div class="col-lg-8">
-            <div class="card mb-3">
+            <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-user me-2"></i>Data Pribadi</div>
                 <div class="card-body">
                     <div class="row g-3">
@@ -71,8 +70,7 @@
                 </div>
             </div>
 
-            <!-- Data Kepegawaian -->
-            <div class="card mb-3">
+            <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-briefcase me-2"></i>Data Kepegawaian</div>
                 <div class="card-body">
                     <div class="row g-3">
@@ -91,7 +89,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Departemen</label>
-                            <select name="department_id" class="form-select" id="departmentSelect">
+                            <select name="department_id" class="form-select">
                                 <option value="">Pilih Departemen...</option>
                                 @foreach($departments as $dept)
                                     <option value="{{ $dept->id }}" {{ old('department_id') == $dept->id ? 'selected' : '' }}>{{ $dept->name }}</option>
@@ -119,8 +117,7 @@
                 </div>
             </div>
 
-            <!-- Akun User -->
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-key me-2"></i>Akun Login (Opsional)</div>
                 <div class="card-body">
                     <div class="form-check mb-3">
@@ -135,9 +132,8 @@
             </div>
         </div>
 
-        <!-- Foto -->
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header"><i class="fas fa-camera me-2"></i>Foto Karyawan</div>
                 <div class="card-body text-center">
                     <div id="photoPreview" class="mb-3" style="height:200px; background:#f8f9fa; border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden;">

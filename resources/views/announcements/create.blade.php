@@ -1,31 +1,43 @@
 @extends('layouts.app')
+
 @section('title', 'Buat Pengumuman')
+
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('announcements.index') }}">Pengumuman</a></li>
+    <li class="breadcrumb-item active">Buat</li>
+@endsection
+
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-bullhorn me-2 text-primary"></i>Buat Pengumuman</h1>
-    <a href="{{ route('announcements.index') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h4 class="mb-0"><i class="fas fa-bullhorn me-2 text-warning"></i>Buat Pengumuman</h4>
+    <a href="{{ route('announcements.index') }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
 </div>
+
 <div class="card" style="max-width:700px;">
+    <div class="card-header"><i class="fas fa-edit me-2"></i>Form Pengumuman</div>
     <div class="card-body">
         <form action="{{ route('announcements.store') }}" method="POST">
             @csrf
             <div class="mb-3">
-                <label class="form-label fw-semibold">Judul *</label>
-                <input type="text" name="title" class="form-control" value="{{ old('title') }}" required>
+                <label class="form-label fw-semibold">Judul <span class="text-danger">*</span></label>
+                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required>
+                @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="mb-3">
-                <label class="form-label fw-semibold">Isi Pengumuman *</label>
-                <textarea name="content" class="form-control" rows="6" required>{{ old('content') }}</textarea>
+                <label class="form-label fw-semibold">Isi Pengumuman <span class="text-danger">*</span></label>
+                <textarea name="content" class="form-control @error('content') is-invalid @enderror" rows="6" required>{{ old('content') }}</textarea>
+                @error('content')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="row g-3 mb-3">
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Target *</label>
-                    <select name="target_role" class="form-select" required>
-                        <option value="all">Semua</option>
-                        <option value="karyawan">Karyawan</option>
-                        <option value="admin">Admin</option>
-                        <option value="owner">Owner</option>
+                    <label class="form-label fw-semibold">Target <span class="text-danger">*</span></label>
+                    <select name="target_role" class="form-select @error('target_role') is-invalid @enderror" required>
+                        <option value="all" {{ old('target_role') === 'all' ? 'selected' : '' }}>Semua</option>
+                        <option value="karyawan" {{ old('target_role') === 'karyawan' ? 'selected' : '' }}>Karyawan</option>
+                        <option value="admin" {{ old('target_role') === 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="owner" {{ old('target_role') === 'owner' ? 'selected' : '' }}>Owner</option>
                     </select>
+                    @error('target_role')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Tanggal Kedaluarsa</label>
@@ -34,7 +46,7 @@
             </div>
             <div class="mb-4">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="is_active" id="isActive" value="1" checked>
+                    <input class="form-check-input" type="checkbox" name="is_active" id="isActive" value="1" {{ old('is_active', '1') ? 'checked' : '' }}>
                     <label class="form-check-label" for="isActive">Publikasikan Sekarang</label>
                 </div>
             </div>

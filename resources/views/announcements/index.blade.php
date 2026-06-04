@@ -1,12 +1,19 @@
 @extends('layouts.app')
+
 @section('title', 'Pengumuman')
+
+@section('breadcrumb')
+    <li class="breadcrumb-item active">Pengumuman</li>
+@endsection
+
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-bullhorn me-2 text-primary"></i>Pengumuman</h1>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h4 class="mb-0"><i class="fas fa-bullhorn me-2 text-warning"></i>Pengumuman</h4>
     @can('manage announcements')
-        <a href="{{ route('announcements.create') }}" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Buat Pengumuman</a>
+        <a href="{{ route('announcements.create') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus me-2"></i>Buat Pengumuman</a>
     @endcan
 </div>
+
 <div class="row g-3">
     @forelse($announcements as $announcement)
         <div class="col-12">
@@ -14,9 +21,11 @@
                 <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between">
                         <div class="flex-grow-1">
-                            <div class="d-flex align-items-center gap-2 mb-2">
+                            <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
                                 <h5 class="mb-0 fw-bold">{{ $announcement->title }}</h5>
-                                @if(!$announcement->is_active)<span class="badge bg-secondary">Nonaktif</span>@endif
+                                @if(!$announcement->is_active)
+                                    <span class="badge bg-secondary">Nonaktif</span>
+                                @endif
                                 <span class="badge bg-info">{{ $announcement->target_role === 'all' ? 'Semua' : ucfirst($announcement->target_role) }}</span>
                             </div>
                             <div class="text-muted mb-3">{{ $announcement->content }}</div>
@@ -52,5 +61,8 @@
         </div>
     @endforelse
 </div>
-@if($announcements->hasPages())<div class="mt-3">{{ $announcements->links() }}</div>@endif
+
+@if($announcements->hasPages())
+    <div class="mt-3">{{ $announcements->links() }}</div>
+@endif
 @endsection

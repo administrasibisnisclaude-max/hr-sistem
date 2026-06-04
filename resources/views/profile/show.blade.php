@@ -1,10 +1,17 @@
 @extends('layouts.app')
+
 @section('title', 'Profil Saya')
+
+@section('breadcrumb')
+    <li class="breadcrumb-item active">Profil Saya</li>
+@endsection
+
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-user me-2 text-primary"></i>Profil Saya</h1>
-    <a href="{{ route('profile.edit') }}" class="btn btn-primary"><i class="fas fa-edit me-2"></i>Edit Profil</a>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h4 class="mb-0"><i class="fas fa-user me-2 text-primary"></i>Profil Saya</h4>
+    <a href="{{ route('profile.edit') }}" class="btn btn-primary btn-sm"><i class="fas fa-edit me-2"></i>Edit Profil</a>
 </div>
+
 <div class="row g-3">
     <div class="col-lg-4">
         <div class="card">
@@ -23,15 +30,16 @@
                     <span class="badge px-3 py-2 mb-2" style="background:#{{ $roleColors[$role] ?? '6c757d' }}">{{ ucfirst($role) }}</span>
                 @endforeach
                 @if($user->employee)
-                    <div class="mt-3 text-start">
-                        <small class="text-muted d-block">NIK: {{ $user->employee->nik }}</small>
-                        <small class="text-muted d-block">Jabatan: {{ $user->employee->position?->name }}</small>
-                        <small class="text-muted d-block">Departemen: {{ $user->employee->department?->name }}</small>
+                    <div class="mt-3 text-start border-top pt-3">
+                        <small class="text-muted d-block mb-1"><strong>NIK:</strong> {{ $user->employee->nik }}</small>
+                        <small class="text-muted d-block mb-1"><strong>Jabatan:</strong> {{ $user->employee->position?->name ?? '-' }}</small>
+                        <small class="text-muted d-block"><strong>Departemen:</strong> {{ $user->employee->department?->name ?? '-' }}</small>
                     </div>
                 @endif
             </div>
         </div>
     </div>
+
     <div class="col-lg-8">
         <div class="card mb-3">
             <div class="card-header"><i class="fas fa-user me-2"></i>Informasi Pribadi</div>
@@ -70,6 +78,7 @@
                 </div>
             </div>
         </div>
+
         @if($user->employee)
             <div class="card">
                 <div class="card-header"><i class="fas fa-briefcase me-2"></i>Informasi Kepegawaian</div>
@@ -84,11 +93,11 @@
                             <strong>{{ $user->employee->department?->name ?? '-' }}</strong>
                         </div>
                         <div class="col-md-6">
-                            <small class="text-muted d-block">Status</small>
+                            <small class="text-muted d-block">Status Kepegawaian</small>
                             <strong>{{ $user->employee->status_label ?? '-' }}</strong>
                         </div>
                         <div class="col-md-6">
-                            <small class="text-muted d-block">Bank/Rekening</small>
+                            <small class="text-muted d-block">Bank / Rekening</small>
                             <strong>{{ $user->employee->bank_name ?? '-' }} / {{ $user->employee->bank_account ?? '-' }}</strong>
                         </div>
                     </div>

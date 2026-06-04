@@ -1,11 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Edit Evaluasi Kinerja')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('performance.index') }}">Evaluasi</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+@endsection
 @section('content')
-<div class="page-header">
-    <h1 class="page-title"><i class="fas fa-chart-bar me-2 text-primary"></i>Edit Evaluasi Kinerja</h1>
+<div class="d-flex justify-content-end mb-3">
     <a href="{{ route('performance.index') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
 </div>
-<div class="card" style="max-width:700px;">
+<div class="card mb-4" style="max-width:700px;">
+    <div class="card-header"><i class="fas fa-star me-2"></i>Edit Evaluasi Kinerja</div>
     <div class="card-body">
         <form action="{{ route('performance.update', $performance) }}" method="POST">
             @csrf @method('PUT')
