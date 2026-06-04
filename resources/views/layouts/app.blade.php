@@ -231,7 +231,7 @@
                                     <div class="sb-nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
                                     Slip Gaji
                                 </a>
-                                <a class="nav-link {{ request()->routeIs('announcements.*') ? 'active' : '' }}" href="{{ route('announcements.own') }}">
+                                <a class="nav-link {{ request()->routeIs('announcements.*') ? 'active' : '' }}" href="{{ route('announcements.index') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-bullhorn"></i></div>
                                     Pengumuman
                                 </a>

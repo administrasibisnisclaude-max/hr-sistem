@@ -112,7 +112,7 @@
 <div class="card mb-4">
     <div class="card-header d-flex align-items-center justify-content-between">
         <span><i class="fas fa-bullhorn me-2"></i>Pengumuman Terbaru</span>
-        <a href="{{ route('announcements.own') }}" class="btn btn-sm btn-outline-warning">Semua</a>
+        <a href="{{ route('announcements.index') }}" class="btn btn-sm btn-outline-warning">Semua</a>
     </div>
     <div class="card-body p-0">
         @forelse($announcements as $announcement)
