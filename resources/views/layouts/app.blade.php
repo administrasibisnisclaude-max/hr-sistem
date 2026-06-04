@@ -212,7 +212,7 @@
                                     <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                     Profil Saya
                                 </a>
-                                <a class="nav-link {{ request()->routeIs('attendance.own') ? 'active' : '' }}" href="{{ route('attendance.own') }}">
+                                <a class="nav-link {{ request()->routeIs('attendance.index') ? 'active' : '' }}" href="{{ route('attendance.index') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-calendar-check"></i></div>
                                     Absensi
                                 </a>
