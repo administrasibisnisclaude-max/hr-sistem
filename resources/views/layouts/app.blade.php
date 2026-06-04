@@ -223,11 +223,11 @@
                                 </a>
                                 <div class="collapse {{ request()->routeIs('leaves.*') ? 'show' : '' }}" id="collapseKaryawanLeaves" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link {{ request()->routeIs('leaves.own') ? 'active' : '' }}" href="{{ route('leaves.own') }}">Cuti Saya</a>
+                                        <a class="nav-link {{ request()->routeIs('leaves.index') ? 'active' : '' }}" href="{{ route('leaves.index') }}">Cuti Saya</a>
                                         <a class="nav-link {{ request()->routeIs('leaves.create-own') ? 'active' : '' }}" href="{{ route('leaves.create') }}">Ajukan Cuti</a>
                                     </nav>
                                 </div>
-                                <a class="nav-link {{ request()->routeIs('payroll.own') ? 'active' : '' }}" href="{{ route('payroll.own') }}">
+                                <a class="nav-link {{ request()->routeIs('payroll.index') ? 'active' : '' }}" href="{{ route('payroll.index') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
                                     Slip Gaji
                                 </a>

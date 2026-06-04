@@ -104,7 +104,7 @@
     <div class="alert alert-warning">
         <i class="fas fa-clock me-2"></i>
         Anda memiliki <strong>{{ $pendingLeaves }}</strong> pengajuan cuti yang sedang menunggu persetujuan.
-        <a href="{{ route('leaves.own') }}" class="alert-link ms-1">Lihat &rarr;</a>
+        <a href="{{ route('leaves.index') }}" class="alert-link ms-1">Lihat &rarr;</a>
     </div>
 @endif
 

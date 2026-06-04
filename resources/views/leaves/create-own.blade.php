@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('title', 'Ajukan Cuti')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('leaves.own') }}">Cuti Saya</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('leaves.index') }}">Cuti Saya</a></li>
     <li class="breadcrumb-item active">Ajukan Cuti</li>
 @endsection
 @section('content')
 <div class="d-flex justify-content-end mb-3">
-    <a href="{{ route('leaves.own') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
+    <a href="{{ route('leaves.index') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
 </div>
 
 @if($leaveBalance)
@@ -55,7 +55,7 @@
             </div>
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane me-2"></i>Ajukan Cuti</button>
-                <a href="{{ route('leaves.own') }}" class="btn btn-outline-secondary">Batal</a>
+                <a href="{{ route('leaves.index') }}" class="btn btn-outline-secondary">Batal</a>
             </div>
         </form>
     </div>
