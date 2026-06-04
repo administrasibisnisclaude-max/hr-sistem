@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees/{employee}', [EmployeeController::class, 'show'])->name('employees.show');
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/leaves', [LeaveController::class, 'index'])->name('leaves.index');
+    Route::get('/leaves/balance', [LeaveController::class, 'balance'])->name('leaves.balance');
     Route::get('/leaves/{leave}', [LeaveController::class, 'show'])->name('leaves.show');
     Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll.index');
     Route::get('/payroll/{payroll}', [PayrollController::class, 'show'])->name('payroll.show');
@@ -81,7 +82,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/attendance/{attendance}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
 
         // Leave management
-        Route::get('/leaves/balance', [LeaveController::class, 'balance'])->name('leaves.balance');
         Route::post('/leaves/{leave}/approve', [LeaveController::class, 'approve'])->name('leaves.approve');
         Route::post('/leaves/{leave}/reject', [LeaveController::class, 'reject'])->name('leaves.reject');
 
